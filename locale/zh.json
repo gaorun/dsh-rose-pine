@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "title": "玫瑰松（Rosé Pine）",
+    "description": "为 DeepSeek Harness 网页界面换上玫瑰松（Rosé Pine）配色，包含 Rosé Pine、Rosé Pine Moon 和 Rosé Pine Dawn 三个官方变体。"
+  },
+  "rosePine": {
+    "title": "玫瑰松（Rosé Pine）",
+    "description": "用玫瑰松（Rosé Pine）为窗口上色；浅色模式下自动使用 Rosé Pine Dawn。",
+    "darkVariant": "深色变体",
+    "main": "Rosé Pine",
+    "moon": "Rosé Pine Moon",
+    "dawnHint": "外观为浅色时自动使用 Rosé Pine Dawn。"
+  }
+}

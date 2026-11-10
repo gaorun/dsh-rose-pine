@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "title": "Rosé Pine",
+    "description": "Repaints the DeepSeek Harness Web UI in Rosé Pine, with all three official variants: Rosé Pine, Rosé Pine Moon and Rosé Pine Dawn."
+  },
+  "rosePine": {
+    "title": "Rosé Pine",
+    "description": "Paint this window in Rosé Pine. Light mode uses Rosé Pine Dawn.",
+    "darkVariant": "Dark variant",
+    "main": "Rosé Pine",
+    "moon": "Rosé Pine Moon",
+    "dawnHint": "Rosé Pine Dawn applies automatically while Appearance is light."
+  }
+}

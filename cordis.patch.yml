@@ -1,0 +1,4 @@
+# Rosé Pine for DeepSeek Harness: the browser half (lib/client.js) paints the Web UI theme tokens.
+- insert:
+    - id: rose-pine
+      name: 'dsh-rose-pine'
