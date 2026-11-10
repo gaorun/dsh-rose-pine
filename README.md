@@ -50,22 +50,31 @@ Text roles are chosen so primary text keeps at least 4.5:1 contrast on the base,
 
 ## Install
 
-The bundle installs into a DeepSeek Harness profile from this package directory — nothing is published to npm. Use either route.
+The bundle installs into a DeepSeek Harness profile. Nothing is published to npm: the browser bundle is committed,
+so installing needs no build step and no registry access (the `@rose-pine/palette` dependency is only used by the
+build and tests).
 
-### Plugin Manager
+### From GitHub (recommended)
 
-1. Open Plugin Manager in the Harness Web UI.
-2. Choose the install-bundle action and select this directory, the folder that contains [package.json](package.json).
-3. Confirm the installation. The bundle appears in Plugin Manager and its browser half (`lib/client.js`) loads in the Web UI.
-
-### `plugin_manager` tool
-
-From an agent session in the same profile, call `plugin_manager` with:
+From an agent session in the target profile, call `plugin_manager` with:
 
 - `action`: `install_bundle`
-- `target`: the absolute path of this directory, for example `/Users/run/my-repos/dsh-rose-pine`
+- `target`: `github:gaorun/dsh-rose-pine`
 
-Installation affects every session in the active profile and persists across restarts. A local directory install links this checkout, so rebuild `lib/client.js` (`npm run build`) after editing sources, and restart the Harness if an updated copy does not take effect. A new bundle can activate without a restart.
+The profile records the source and pins the resolved commit in its lockfile, so the install is reproducible. After
+a new commit, reinstall the same spec to update; an updated browser half needs a Harness restart to load the new
+module generation.
+
+### From a local checkout (development)
+
+1. Plugin Manager: open it in the Harness Web UI, choose the install-bundle action and select this directory (the
+   folder that contains [package.json](package.json)).
+2. Or from an agent session, call `plugin_manager` with `action: install_bundle` and `target` set to the absolute
+   path of this directory, for example `/Users/run/my-repos/dsh-rose-pine`.
+
+A directory install links this checkout instead of copying it, so `npm run build` after editing sources updates the
+installed browser half on the next page load. Installation affects every session in the active profile and persists
+across restarts; a new bundle can activate without a restart.
 
 ## Appearance and variants
 
