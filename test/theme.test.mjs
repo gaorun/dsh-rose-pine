@@ -286,7 +286,7 @@ test('bundle manifest and icon are present and well formed', () => {
   assert.doesNotMatch(icon, /<script\b/i, 'icon.svg must not contain scripts')
   assert.doesNotMatch(icon, /(?:href|src)\s*=\s*"(?:https?:|\/\/)/i, 'icon.svg must not reference external resources')
   const lowered = icon.toLowerCase()
-  for (const color of ['#191724', '#31748f', '#ebbcba']) {
+  for (const color of ['#26233a', '#31748f', '#ebbcba']) {
     assert.ok(lowered.includes(color), `icon.svg should use the Rosé Pine palette color ${color}`)
   }
 })

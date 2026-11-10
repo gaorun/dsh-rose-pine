@@ -177,8 +177,9 @@ no fields? No: omit Config. Add a short header comment explaining that the brows
 
 ## `icon.svg` (bundle-engineer)
 
-Original artwork, 64×64 viewBox, uses the Rosé Pine palette (pine #31748f, rose #ebbcba, base #191724). A simple
-rose/pine mark; must be valid standalone SVG (no external refs, no script). Keep under 8 KiB.
+Original artwork, 64×64 viewBox, uses the Rosé Pine palette (overlay #26233a, rose #ebbcba, pine #31748f) plus a
+rose → iris (#c4a7e7) → foam (#9ccfd8) gradient ring. A rose-and-pine face inside a starburst insignia; must be valid
+standalone SVG (no external refs, no script). Keep under 8 KiB.
 
 ## `locale/en.json` / `locale/zh.json` (docs-writer)
 
