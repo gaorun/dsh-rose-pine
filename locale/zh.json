@@ -5,10 +5,12 @@
   },
   "rosePine": {
     "title": "玫瑰松（Rosé Pine）",
-    "description": "用玫瑰松（Rosé Pine）为窗口上色；浅色模式下自动使用 Rosé Pine Dawn。",
+    "description": "用玫瑰松（Rosé Pine）为窗口上色；浅色外观固定使用 Rosé Pine Dawn。",
+    "lightScheme": "浅色外观",
+    "darkScheme": "深色外观",
     "darkVariant": "深色变体",
     "main": "Rosé Pine",
     "moon": "Rosé Pine Moon",
-    "dawnHint": "外观为浅色时自动使用 Rosé Pine Dawn。"
+    "dawnHint": "深色外观使用这里选中的变体；浅色外观始终是 Rosé Pine Dawn。"
   }
 }

@@ -90,33 +90,57 @@ window.__ModuleLoader__.load({
 .dshrp-group{border-bottom:.5px solid var(--dsw-alias-border-l2);flex-direction:column;gap:8px;padding:16px 0;display:flex}
 .dshrp-title{color:var(--dsw-alias-label-primary);font-size:14px;font-weight:400;line-height:22px}
 .dshrp-desc{color:var(--dsw-alias-label-tertiary);font-size:13px;line-height:20px}
+.dshrp-status{color:var(--dsw-alias-label-secondary);font-size:13px;line-height:20px;flex-wrap:wrap;align-items:baseline;gap:6px;display:flex}
+.dshrp-statusKey{color:var(--dsw-alias-label-caption)}
+.dshrp-statusSep{color:var(--dsw-alias-label-caption);margin:0 2px}
+.dshrp-statusValue{color:var(--dsw-alias-brand-primary);font-weight:500}
+.dshrp-groupLabel{color:var(--dsw-alias-label-caption);font-size:12px;line-height:18px}
 .dshrp-cubeRow{flex-wrap:wrap;align-items:stretch;gap:8px;display:flex}
-.dshrp-cube{box-sizing:border-box;border:.5px solid var(--dsw-alias-border-l4);border-radius:var(--dsw-radius-xl);font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;background:0 0;flex-direction:column;flex:180px;justify-content:center;align-items:center;gap:6px;padding:16px 24px;font-size:14px;line-height:22px;display:flex}
+.dshrp-cube{box-sizing:border-box;border:.5px solid var(--dsw-alias-border-l4);border-radius:var(--dsw-radius-xl);font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;background:0 0;flex-direction:column;flex:180px;justify-content:center;align-items:center;gap:8px;padding:14px 20px;font-size:14px;line-height:22px;display:flex}
 @media (hover:hover){.dshrp-cube:hover:not(.dshrp-selected){background:var(--dsw-alias-interactive-bg-hover)}}
-.dshrp-selected{background:var(--dsw-alias-bg-module-platform);border-color:var(--dsw-static-neutral-bluish-400)}
-.dshrp-swatch{width:34px;height:20px;border-radius:999px;border:.5px solid var(--dsw-alias-border-l2);position:relative;overflow:hidden}
-.dshrp-swatchDot{position:absolute;right:3px;top:50%;transform:translateY(-50%);width:10px;height:10px;border-radius:999px}
+.dshrp-selected{background:var(--dsw-alias-bg-module-platform);border-color:transparent;box-shadow:inset 0 0 0 1.5px var(--dsw-alias-brand-primary)}
+.dshrp-cubeName{font-size:14px;line-height:22px}
+.dshrp-selected .dshrp-cubeName{font-weight:500}
+.dshrp-preview{position:relative;box-sizing:border-box;width:52px;height:32px;border-radius:8px;border:.5px solid var(--dsw-alias-border-l3);overflow:hidden;box-shadow:0 1px 3px #0000001f}
+.dshrp-previewHeader{position:absolute;inset:0 0 auto;height:9px}
+.dshrp-previewLine{position:absolute;left:7px;height:3px;border-radius:2px}
+.dshrp-previewDot{position:absolute;right:6px;bottom:6px;width:9px;height:9px;border-radius:999px}
 .dshrp-hint{color:var(--dsw-alias-label-caption);font-size:12px;line-height:18px}
 @media (width<=767px){html:not([data-windows-titlebar]):not([data-platform=darwin]) .dshrp-cube{flex:1 1 0;padding:12px 6px}}
 `
 
-    function Swatch({ id }) {
+    /** A miniature window painted with one variant, so the two choices look different. */
+    function VariantPreview({ id }) {
       const palette = paletteOf(id)
-      return h('span', { className: 'dshrp-swatch', style: { background: palette.base }, 'aria-hidden': true },
-        h('span', { className: 'dshrp-swatchDot', style: { background: palette.iris } }))
+      return h('span', { className: 'dshrp-preview', style: { background: palette.base }, 'aria-hidden': true },
+        h('span', { className: 'dshrp-previewHeader', style: { background: palette.surface } }),
+        h('span', { className: 'dshrp-previewLine', style: { top: '13px', width: '22px', background: palette.text, opacity: 0.85 } }),
+        h('span', { className: 'dshrp-previewLine', style: { top: '19px', width: '14px', background: palette.text, opacity: 0.5 } }),
+        h('span', { className: 'dshrp-previewDot', style: { background: palette.rose } }))
     }
 
     function RosePineRow({ ctx, rosePine }) {
       const t = translate(ctx)
       const [darkId, setDarkId] = React.useState(readDarkId)
 
-      // Re-render when the locale changes; the row text is the only localized copy.
-      const [, setTick] = React.useState(0)
-      React.useEffect(() => ctx.locale.subscribe(() => setTick((value) => value + 1)), [ctx])
+      // Re-render on locale switches; the theme halves below are facts, not the live scheme,
+      // so no theme subscription is needed: both are always true and the dark half follows
+      // this row's own state, which is what gives the click visible feedback in light mode.
+      const [, setLocaleTick] = React.useState(0)
+      React.useEffect(() => ctx.locale.subscribe(() => setLocaleTick((value) => value + 1)), [ctx])
+
+      const darkName = (themeById(darkId) ?? themeById(DEFAULT_DARK_ID)).name
 
       return h('div', { className: 'dshrp-group' },
         h('div', { className: 'dshrp-title' }, t('title')),
         h('div', { className: 'dshrp-desc' }, t('description')),
+        h('div', { className: 'dshrp-status' },
+          h('span', { className: 'dshrp-statusKey' }, `${t('lightScheme')}:`),
+          h('span', { className: 'dshrp-statusValue' }, themeById(DAWN_ID).name),
+          h('span', { className: 'dshrp-statusSep' }, '·'),
+          h('span', { className: 'dshrp-statusKey' }, `${t('darkScheme')}:`),
+          h('span', { className: 'dshrp-statusValue', 'data-dshrp-dark': darkId }, darkName)),
+        h('div', { className: 'dshrp-groupLabel' }, t('darkVariant')),
         h('div', { className: 'dshrp-cubeRow', role: 'group', 'aria-label': t('darkVariant') },
           DARK_THEME_IDS.map((id) => {
             const selected = id === darkId
@@ -131,8 +155,8 @@ window.__ModuleLoader__.load({
                 rosePine.apply(id)
               },
             },
-            h(Swatch, { id }),
-            h('span', null, t(id === 'rose-pine' ? 'main' : 'moon')))
+            h(VariantPreview, { id }),
+            h('span', { className: 'dshrp-cubeName' }, t(id === 'rose-pine' ? 'main' : 'moon')))
           })),
         h('div', { className: 'dshrp-hint' }, t('dawnHint')))
     }

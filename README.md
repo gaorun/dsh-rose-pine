@@ -75,6 +75,11 @@ The bundle follows Appearance (`light`, `dark` or `system`) and does not add a s
 - **Dark** → Rosé Pine by default. The **Rosé Pine** row in **Settings → General** switches the dark variant to **Rosé Pine Moon**; the choice is remembered in the browser.
 - **System** → whichever scheme the operating system reports.
 
+The row states both halves up front — `Light appearance: Rosé Pine Dawn · Dark appearance: Rosé Pine` — because the
+buttons only choose the dark variant. Switching to Rosé Pine Moon while the window is in light mode changes the
+"dark appearance" value immediately but does not repaint anything until Appearance goes dark; in dark mode the same
+click repaints at once. Each button previews its variant (base, surface, text and the variant's `rose` accent).
+
 The Harness Appearance preference is a closed `light | dark | system` enum, so a third-party theme cannot be selected or persisted through the built-in Appearance row. The Rosé Pine definitions are still registered with the theme service for consumers that read theme definitions, and the override layer repaints the UI for the active scheme.
 
 ## Development

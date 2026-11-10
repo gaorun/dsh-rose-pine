@@ -16,7 +16,7 @@ const CLIENT_PATH = new URL('../lib/client.js', import.meta.url)
 const MANIFEST_PATH = new URL('../cordis.patch.yml', import.meta.url)
 const ICON_PATH = new URL('../icon.svg', import.meta.url)
 const LOCALE_DIR = new URL('../locale/', import.meta.url)
-const ROW_STRING_KEYS = ['title', 'description', 'darkVariant', 'main', 'moon', 'dawnHint']
+const ROW_STRING_KEYS = ['title', 'description', 'lightScheme', 'darkScheme', 'darkVariant', 'main', 'moon', 'dawnHint']
 
 const DOCS = JSON.parse(readFileSync(DOCS_PATH, 'utf8'))
 const EXPECTED_TOKEN_NAMES = [...new Set([...Object.keys(DOCS.light), ...Object.keys(DOCS.dark)])].sort()
